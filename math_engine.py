@@ -30,21 +30,24 @@ def compute():
     product of list of numbers passed (as arguments in POST request).
     '''
     if u'values' in request.json:
-        current_sum, current_product = 0, 1
-        for item in request.json[u'values']:
-            if type(item) != int:
-                return jsonify({'Error' : 'All the items must be integers!'})
-            else:
-                current_sum += item
-                current_product *= item
-        
-        DATA_STORE.append( { "ip" : "%s"%request.remote_addr, 
-            "timestamp" : datetime.now(), 
-            "sum" : current_sum, "product" : current_product,
-            "values" :  request.json[u'values'] } )
+        if type(request.json[u'values']) == list:
+            current_sum, current_product = 0, 1
+            for item in request.json[u'values']:
+                if type(item) != int:
+                    return jsonify({'Error' : 'All items should be integers!'})
+                else:
+                    current_sum += item
+                    current_product *= item
+            
+            DATA_STORE.append( { "ip" : "%s"%request.remote_addr, 
+                "timestamp" : datetime.now(), 
+                "sum" : current_sum, "product" : current_product,
+                "values" :  request.json[u'values'] } )
 
-        dump(DATA_STORE, open('stored.data', 'wb'))
-        return jsonify({'sum' : current_sum, 'product' : current_product})
+            dump(DATA_STORE, open('stored.data', 'wb'))
+            return jsonify({'sum' : current_sum, 'product' : current_product})
+        else:
+            return jsonify({'Error' : 'Values have to passed in a list!'})
     else:
         return jsonify({'Error' : 'Values not passed!'})
 
