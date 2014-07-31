@@ -21,7 +21,7 @@ A terminal based RESTful calculator which returns the sum and product of values 
 
 ###To query calculator:
 * Open another *Terminal*
-* **curl**-away
+* **curl**-away :)
 
 ###Requirements:
   * Python 2.7
