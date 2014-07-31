@@ -1,6 +1,6 @@
 #RESTful Calculator
 
-A terminal based RESTful calculator which returns the sum and product of values passed. It also allows the user to query on the basis of time at which the request was made. It persists data with server, hence data retention.
+A terminal based RESTful calculator which returns the sum and product of values passed. It allows the user to query on the basis of time at which the request was made. It also persists data with server.
 
 ##Functions supported:
   * **compute()** - User will **POST** integers whose sum and product is expected from this calculator. The calculator will compute the results and send back the expected outcomes in **JSON** format. User should **POST** in the following format : 
