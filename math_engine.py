@@ -54,20 +54,20 @@ def compute():
 @APP.route('/get_stored', methods = ['POST'])
 def get_stored_data():
     '''
-    The API endpoint which returns a list of previous responses, which have a 
-    timestamp greater than 'minutes', w.r.t current time -  this parameter is
-    passed by user along with the POST request.
+    The API endpoint which returns a list of previous responses, 
+    which were made 'minutes' minutes before the current time -
+    this parameter is passed by user along with the POST request.
     '''
     if u'minutes' in request.json:
         minutes = request.json[u'minutes']
         if type(minutes) == int and minutes >= 0:
             t_now = datetime.now()
             final = []
-            for stored_q in DATA_STORE:
+            for stored_q in DATA_STORE[::-1]:
                 t_stored = stored_q['timestamp']
                 diff_result = get_minute_diff(t_stored, t_now)
                 if diff_result:
-                    if diff_result >= minutes:
+                    if diff_result <= minutes:
                         temp = {}
                         for key in stored_q:
                             if key != "timestamp":
